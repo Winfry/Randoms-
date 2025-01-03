@@ -46,15 +46,19 @@ remarks_filter = st.sidebar.multiselect(
     default=df["Remarks"].unique()
 )
 date_filter = st.sidebar.date_input(
-    "Select Date Range", 
-    [df["Status"].min(), df["Status"].max()]
+    "Select Date Range",
+    [df["Status"].min().date(), df["Status"].max().date()]
 )
+
+# Convert date_filter to datetime
+start_date = pd.to_datetime(date_filter[0])
+end_date = pd.to_datetime(date_filter[1])
 
 # Apply Filters
 filtered_df = df[
     (df["Responsibility center"].isin(responsibility_filter)) &
     (df["Remarks"].isin(remarks_filter)) &
-    (df["Status"].between(date_filter[0], date_filter[1]))
+    (df["Status"].between(start_date, end_date))
 ]
 
 # Dataset Preview
