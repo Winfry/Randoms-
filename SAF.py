@@ -80,7 +80,8 @@ if not filtered_df.empty:
         x_end="End Date",
         y="Description",
         color="Remarks",
-        title="Project Timeline"
+        title="Project Timeline",
+        hover_data=["Responsibility center", "Remarks"]
     )
     gantt_chart.update_yaxes(categoryorder="total ascending")
     st.plotly_chart(gantt_chart)
