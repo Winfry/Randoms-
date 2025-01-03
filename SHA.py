@@ -5,19 +5,25 @@ import plotly.graph_objects as go
 import numpy as np
 from datetime import datetime
 
-# Sample dataset structure
-data = {
-    "Description": ["Track progress on the 6 service pillars"] * 5,
-    "Responsibility center": ["SHA ICT Directorate"] * 5,
-    "Status": ["3/1/2025", "4/1/2025", "5/1/2025", "6/1/2025", "7/1/2025"],
-    "Remarks": ["Pending", "Pending", "Completed", "In Progress", "Completed"]
-}
+# Load the dataset from Safricom.xlsx
+df = pd.read_excel("Safaricom.xlsx")
 
-# Convert to DataFrame
-df = pd.DataFrame(data)
+# Clean column names
+df.columns = df.columns.str.strip()
 
-# Convert 'Status' to datetime
-df['Status'] = pd.to_datetime(df['Status'], format='%m/%d/%Y')
+# Print the column names to verify the 'Status' column exists
+print("Column names in the dataset:", df.columns)
+
+# If the 'Status' column exists, convert it to datetime
+if 'Status' in df.columns:
+    # Convert the 'Status' column to datetime
+    df['Status'] = pd.to_datetime(df['Status'], errors='coerce')
+    print("Status column successfully parsed as datetime.")
+else:
+    print("Status column not found in the dataset")
+
+# Display the dataframe to check if everything is loaded correctly
+print(df.head())
 
 # Streamlit layout
 st.title("Service Pillars Progress Tracking Dashboard")
