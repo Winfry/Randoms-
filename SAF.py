@@ -124,8 +124,27 @@ if not filtered_df.empty:
         y="Count",
         title="Projects Completed Over Time"
     )
-    st.plotly_chart(trend_fig)    
+    st.plotly_chart(trend_fig)   
+    
+# Additional scatter plot
+st.subheader("Status vs Remarks")
+scatter_fig = px.scatter(
+    df,
+    x="Status",
+    y="Remarks",
+    color="Remarks",
+    title="Scatter Plot of Status vs Remarks",
+    hover_data=["Description"],
+)
+st.plotly_chart(scatter_fig)
 
+# Add additional interactive filters for Remarks
+remark_filter = st.sidebar.multiselect("Filter by Remark", df["Remarks"].unique(), default=df["Remarks"].unique())
+filtered_df_by_remark = df[df["Remarks"].isin(remark_filter)]
+
+st.subheader("Filtered Dataset by Remarks")
+st.dataframe(filtered_df_by_remark)
+     
 # Heatmap (Optional for Investors)
 st.markdown("### Heatmap: Status Across Time")
 pivot_table = filtered_df.pivot_table(

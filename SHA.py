@@ -101,7 +101,7 @@ st.plotly_chart(gantt_fig)
 # Bar chart: Projects per Responsibility Center
 st.subheader("Projects by Responsibility Center")
 responsibility_fig = px.bar(df, x="Responsibility center", color="Remarks", title="Projects by Responsibility Center")
-st.plotly_chart(responsibility_fig)
+st.plotly_chart(responsibility_fig, use_container_width=True, key="responsibility_center_chart")
 
 # Interactive filter for Responsibility Center
 responsibility_filter = st.sidebar.selectbox("Filter by Responsibility Center", df["Responsibility center"].unique())
