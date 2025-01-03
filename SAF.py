@@ -26,10 +26,13 @@ total_projects = df["Description"].nunique()
 completed_projects = df[df["Remarks"] == "Completed"].shape[0]
 pending_projects = df[df["Remarks"] == "Pending"].shape[0]
 upcoming_deadlines = df[df["Status"] > datetime.now()].shape[0]
+completion_rate = (completed_projects / total_projects) * 100
+
 
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Total Projects", total_projects)
-col2.metric("Completed", completed_projects)
+col2.metric("Completion Rate", f"{completion_rate:.2f}%", f"{completed_projects} completed")
+st.progress(completion_rate / 100)
 col3.metric("Pending", pending_projects)
 col4.metric("Upcoming Deadlines", upcoming_deadlines)
 
