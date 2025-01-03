@@ -134,3 +134,11 @@ heatmap_fig = go.Figure(
 )
 heatmap_fig.update_layout(title="Status Heatmap")
 st.plotly_chart(heatmap_fig)
+
+
+# Insights Section
+st.markdown("### Key Insights for Investors")
+if not filtered_df.empty:
+    st.write(f"**Projects Analyzed:** {len(filtered_df)}")
+    st.write(f"**Completion Rate:** {completion_rate:.2f}%")
+    st.write("**Summary:** This dashboard showcases the progress of service pillars, offering real-time insights into project status, timelines, and responsibility allocations.")
