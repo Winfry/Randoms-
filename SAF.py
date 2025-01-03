@@ -114,6 +114,17 @@ for idx, row in filtered_df.iterrows():
     st.write(f"- End Date: {row['End Date']}")
     st.write(f"- Remarks: {row['Remarks']}")
     st.markdown("---")
+    
+# Trend Analysis
+st.markdown("### Trends in Project Completion")
+if not filtered_df.empty:
+    trend_fig = px.line(
+        filtered_df.groupby("Status").size().reset_index(name="Count"),
+        x="Status",
+        y="Count",
+        title="Projects Completed Over Time"
+    )
+    st.plotly_chart(trend_fig)    
 
 # Heatmap (Optional for Investors)
 st.markdown("### Heatmap: Status Across Time")
